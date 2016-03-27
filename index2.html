@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Yobs - Humanized Job Search</title>
+        <link href='https://fonts.googleapis.com/css?family=Raleway:200' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="css/promin.css" />
+        <title>Autocomplete</title>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <style>
+            * {
+                outline: none;
+            }
+            body {
+                font-family: 'Raleway', sans-serif;
+                margin: 0;
+                padding: 0;
+                font-size: 14px;
+            }
+            
+            .mainframe {
+                width: 100%;
+            }
+            
+            .scroll {
+                position:relative;
+                font-size:1.3em;
+                margin-top:6em;
+                display:inline-block;
+
+            }
+            .scroll:hover {
+                text-decoration:none;
+            }
+
+            .scroll:after {
+                content:'';
+                width:40px;
+                height:40px;
+                position:absolute;
+                top:40px;
+                margin:auto;
+                top:50px;
+                right:0;
+                bottom:0;
+                left:0;
+                -webkit-animation:3s arrow infinite ease;
+                animation:3s arrow infinite ease;
+            }
+
+            .scroll:after {
+                border-right:2px solid #FFF;
+                border-bottom:2px solid #FFF;
+                -webkit-transform:rotate(45deg);
+                transform:rotate(45deg);
+
+            }
+            
+            
+            .top_block {
+                height:600px;
+                background: url('img/bg.jpg') no-repeat center center; 
+                background-size: cover; 
+                box-shadow: inset 0 10px 100px -40px rgba(0,0,0,0.8);
+                text-align: center;
+            }
+            .top_block_inner {
+                width:100vw;
+                min-width: 320px;
+            }
+            .top_block_content {
+                width:80%;
+                top: 25%;
+                margin: 0 auto;
+                height: 50px;
+            }
+            .top_block_logo {
+                text-align: left;
+                width: 50%;
+                float:left;
+                margin-top: 150px;
+            }
+            .top_block_form {
+                text-align: left;
+                width: 48%;
+                float:left;
+                margin-top: 150px;
+                margin-left: 2%;
+            }
+            .logo_image {
+                width: 100%;
+                float: left;
+            }
+            .logo {
+                width:50%;
+                float: left;
+            }
+            .intro_words {
+                margin-left: 2%;
+                float: left;
+                width: 48%;
+            }
+            .intro_words p {
+                font-family: 'Raleway', sans-serif;
+                font-size: 30px;
+            }
+            .intro_words h1 {
+                font-family: 'Raleway', sans-serif;
+                font-size: 80px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .top_block_form h1 {
+                font-size: 40px;
+            }
+            
+            .progress-bar {
+                background-color: #eee;
+                height: 0.25em;
+            }
+
+            .progress-bar .bar {
+                background-color: #0068B0;
+                display: block;
+                height: 0.25em;
+                width: 0%;
+                transition: width 0.2s;
+            }
+            .pm-step p {
+                font-size: 30px;
+            }
+            .muted {
+                font-size: 20px;
+            }
+            a:link,
+            a:visited {
+                color:black;
+                text-decoration:none;
+                position: absolute;
+            }
+            .scroll {
+                position:absolute;
+                font-size:1.3em;
+                margin-top:20px;
+                display:inline-block;
+                height:100px;
+            }
+            .scroll:hover {
+                text-decoration:none;
+            }
+
+            .scroll:after {
+                content:'';
+                width:40px;
+                height:40px;
+                position:absolute;
+                margin:auto;
+                top:10px;
+                right:0;
+                left:0;
+                -webkit-animation:3s arrow infinite ease;
+                animation:3s arrow infinite ease;
+            }
+
+            
+            .intro1 {
+                background:#00E0BD;
+                height: 600px;
+                box-shadow: inset 0 10px 100px -40px rgba(0,0,0,0.8);
+            }
+            .intro2 {
+                background:#00BFB9;
+                height: 600px;
+                box-shadow: inset 0 10px 100px -40px rgba(0,0,0,0.8);
+            }
+            .intro3 {
+                background:#00A3B6;
+                height: 900px;
+                box-shadow: inset 0 10px 100px -40px rgba(0,0,0,0.8);
+            }
+            .footer {
+                height: 300px;
+                background: black;
+            }
+        </style>
+        <script src="jquery-2.2.1.min.js"></script>
+        
+    </head>
+    <body>
+        <div class="mainframe">
+            <div class="panel top_block" data-section-name="top_block">
+                <div class="top_block_inner">
+                    <div class="top_block_content">
+                        <div class="top_block_logo">
+                            <div class="logo">
+                                <img class="logo_image" src="img/yobs_logo.png">
+                            </div>
+                            <div class="intro_words">
+                                <h1>Yobs</h1>
+                                <p>We place millennials in the jobs they want</p>
+                            </div>
+                        </div>
+                        <div class="top_block_form">
+                            <h1>Let us find you a job.</h1>
+                            <form 
+                                action=# id="form" enctype="application/x-www-form-urlencoded" method="post">
+                                <div class="pm-step">
+                                    <p>What is your first name & last name?</p>
+                                    <input type="text" name="name" autocomplete="off" />
+                                </div>
+                                <div class="pm-step">
+                                    <p>Could you fill in your e-mail adress please?</p>
+                                    <input type="email" name="email" 
+                                           placeholder="yobs@example.com" autocomplete="off" />
+                                </div>
+
+                                <div class="pm-step">
+                                    <p>what kind of job do you want?</p>
+                                    <input type="text" name="job" id="jobs"/>
+                                </div>
+
+                                <p class="progress-bar">
+                                    <span class="bar"></span>
+                                </p>
+
+                                <p class="muted"><input type="button" id="navigation" value="Next step" />
+                                    or press enter/tab</p>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+                <a href="#intro1" class="scroll">Scroll for more</a>
+            </div>
+            <div id="intro1" class="panel intro1" data-section-name="intro1">
+            </div>
+            <div class="panel intro2" data-section-name="intro2">
+            </div>
+            <div class="panel intro3" data-section-name="intro3">
+            </div>
+            <div class="footer">
+                
+            </div>
+        </div>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script src="plugins/jquery.promin.js"></script>
+        <script src="plugins/jquery.scrollify.js"></script>
+        <script src="plugins/main.js"></script>
+    </body>
+</html>
